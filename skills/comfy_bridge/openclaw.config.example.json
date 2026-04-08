@@ -1,0 +1,12 @@
+{
+  "skills": {
+    "entries": {
+      "comfy_bridge": {
+        "enabled": true,
+        "env": {
+          "COMFY_BRIDGE_BASE_URL": "http://127.0.0.1:3000"
+        }
+      }
+    }
+  }
+}

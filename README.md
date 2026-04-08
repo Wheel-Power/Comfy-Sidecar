@@ -64,6 +64,25 @@ test/
   tasks.test.ts
 ```
 
+
+## OpenClaw skill
+
+已附带一个可直接给 OpenClaw 使用的技能目录：
+
+```text
+skills/
+  comfy_bridge/
+    SKILL.md
+    openclaw.config.example.json
+```
+
+放置方式：
+
+- 当前工程内使用：`<workspace>/skills/comfy_bridge/SKILL.md`
+- 全局共享：`~/.openclaw/skills/comfy_bridge/SKILL.md`
+
+OpenClaw 的技能目录要求每个技能是一个文件夹，里面包含带 YAML frontmatter 的 `SKILL.md`；技能会从 workspace、shared roots 和 extraDirs 加载，并按优先级覆盖。示例配置里的 `skills.entries.comfy_bridge.env.COMFY_BRIDGE_BASE_URL` 可用于把本地 sidecar 地址注入给技能。
+
 ## IM webhook 负载示例
 
 当任务完成后，会向 `IM_WEBHOOK_URL` POST：
