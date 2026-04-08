@@ -1,2 +1,2 @@
 # Comfy-Sidecar
-A sidecar for comfy-ui, managing orchestration for agent like openclaw ant etc.
+A sidecar for comfy-ui, managing orchestration for agents like openclaw and others.
