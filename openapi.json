@@ -1,0 +1,399 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "comfy-bridge-node",
+    "version": "0.1.0"
+  },
+  "components": {
+    "schemas": {}
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "tags": [
+          "system"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "post": {
+        "summary": "Create a ComfyUI task",
+        "tags": [
+          "tasks"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "sessionId",
+                  "channel",
+                  "replyTo",
+                  "workflow",
+                  "inputs"
+                ],
+                "properties": {
+                  "sessionId": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "channel": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "replyTo": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "workflow": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "workflowVersion": {
+                    "type": "string"
+                  },
+                  "inputs": {
+                    "type": "object",
+                    "additionalProperties": {}
+                  },
+                  "workflowJson": {},
+                  "idempotencyKey": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "taskId",
+                    "status"
+                  ],
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "queued",
+                        "submitting",
+                        "submitted",
+                        "running",
+                        "notifying",
+                        "succeeded",
+                        "submit_failed",
+                        "execution_failed",
+                        "notify_failed",
+                        "timed_out",
+                        "cancelled"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error",
+                    "message"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}": {
+      "get": {
+        "summary": "Get task status",
+        "tags": [
+          "tasks"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "taskId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "taskId",
+                    "sessionId",
+                    "channel",
+                    "replyTo",
+                    "workflow",
+                    "workflowJson",
+                    "status",
+                    "progress",
+                    "dedupeKey",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "sessionId": {
+                      "type": "string"
+                    },
+                    "channel": {
+                      "type": "string"
+                    },
+                    "replyTo": {
+                      "type": "string"
+                    },
+                    "workflow": {
+                      "type": "string"
+                    },
+                    "workflowVersion": {
+                      "type": "string"
+                    },
+                    "workflowJson": {},
+                    "promptId": {
+                      "type": "string"
+                    },
+                    "clientId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "queued",
+                        "submitting",
+                        "submitted",
+                        "running",
+                        "notifying",
+                        "succeeded",
+                        "submit_failed",
+                        "execution_failed",
+                        "notify_failed",
+                        "timed_out",
+                        "cancelled"
+                      ]
+                    },
+                    "progress": {
+                      "minimum": 0,
+                      "maximum": 100,
+                      "type": "integer"
+                    },
+                    "dedupeKey": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "additionalProperties": true,
+                      "type": "object",
+                      "properties": {
+                        "promptId": {
+                          "type": "string"
+                        },
+                        "history": {}
+                      }
+                    },
+                    "error": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error",
+                    "message"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/callbacks/comfy/{taskId}": {
+      "post": {
+        "summary": "Optional callback endpoint for workflow-tail webhook nodes",
+        "tags": [
+          "callbacks"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "type": "object",
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  },
+                  "payload": {}
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "taskId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "taskId",
+                    "status"
+                  ],
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "queued",
+                        "submitting",
+                        "submitted",
+                        "running",
+                        "notifying",
+                        "succeeded",
+                        "submit_failed",
+                        "execution_failed",
+                        "notify_failed",
+                        "timed_out",
+                        "cancelled"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error",
+                    "message"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "system",
+      "description": "System endpoints"
+    },
+    {
+      "name": "tasks",
+      "description": "Task endpoints"
+    },
+    {
+      "name": "callbacks",
+      "description": "Callback endpoints"
+    }
+  ]
+}

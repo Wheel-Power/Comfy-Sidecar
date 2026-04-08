@@ -1,0 +1,35 @@
+{
+  "name": "comfy-bridge-node",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lightweight local ComfyUI sidecar for OpenClaw / IM async task orchestration.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "test": "node --import tsx --test",
+    "test:coverage": "node --import tsx --test --experimental-test-coverage",
+    "openapi:build": "node --import tsx src/openapi.ts > openapi.json",
+    "openapi:types": "openapi-typescript openapi.json -o src/generated/api-types.ts"
+  },
+  "dependencies": {
+    "@fastify/swagger": "latest",
+    "@fastify/swagger-ui": "latest",
+    "@fastify/type-provider-typebox": "latest",
+    "@sinclair/typebox": "latest",
+    "better-sqlite3": "latest",
+    "fastify": "latest",
+    "ws": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "openapi-typescript": "latest",
+    "tsx": "latest",
+    "typescript": "latest",
+    "undici": "latest"
+  }
+}
