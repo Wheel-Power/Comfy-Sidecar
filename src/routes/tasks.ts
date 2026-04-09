@@ -1,5 +1,5 @@
-import { Type, type Static } from '@sinclair/typebox';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
+import { Type, type Static } from '@sinclair/typebox';
 import type { FastifyPluginAsync } from 'fastify';
 import {
   CallbackBodySchema,
@@ -68,7 +68,7 @@ export const tasksRoutes: FastifyPluginAsync = async (fastify) => {
     return task;
   });
 
-  app.post<{ Params: Params }>('/callbacks/comfy/:taskId', {
+  app.post('/callbacks/comfy/:taskId', {
     schema: {
       tags: ['callbacks'],
       summary: 'Optional callback endpoint for workflow-tail webhook nodes',

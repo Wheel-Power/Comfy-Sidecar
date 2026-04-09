@@ -14,7 +14,8 @@
     "test": "node --import tsx --test",
     "test:coverage": "node --import tsx --test --experimental-test-coverage",
     "openapi:build": "node --import tsx src/openapi.ts > openapi.json",
-    "openapi:types": "openapi-typescript openapi.json -o src/generated/api-types.ts"
+    "openapi:types": "openapi-typescript openapi.json -o src/generated/api-types.ts",
+    "postinstall": "typesync && npm install --package-lock-only"
   },
   "dependencies": {
     "@fastify/swagger": "latest",
@@ -26,10 +27,13 @@
     "ws": "latest"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "latest",
+    "@types/ws": "^8.18.1",
     "openapi-typescript": "latest",
     "tsx": "latest",
     "typescript": "latest",
+    "typesync": "^0.14.3",
     "undici": "latest"
   }
 }
