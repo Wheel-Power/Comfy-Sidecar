@@ -15,7 +15,8 @@
     "test:coverage": "node --import tsx --test --experimental-test-coverage",
     "openapi:build": "node --import tsx src/openapi.ts > openapi.json",
     "openapi:types": "openapi-typescript openapi.json -o src/generated/api-types.ts",
-    "postinstall": "typesync && npm install --package-lock-only"
+    "typesync": "typesync",
+    "prepare": "typesync"
   },
   "dependencies": {
     "@fastify/swagger": "latest",
