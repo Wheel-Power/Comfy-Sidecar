@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test-openapi:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. setup runtime
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3. install deps
+      - name: Install deps
+        run: npm ci
+
+      # 4. build
+      - name: Build
+        run: npm run build
+
+      # 5. test
+      - name: Run tests
+        run: npm test
+
+      # 6. openapi lint
+      - name: Validate OpenAPI
+        run: |
+          npm install -g @redocly/cli
+          redocly lint openapi.yaml
+
+      # 7. generate docs
+      - name: Generate OpenAPI docs
+        run: |
+          mkdir -p docs
+          redocly build-docs openapi.yaml -o docs/index.html
