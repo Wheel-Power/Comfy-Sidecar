@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm: install",
+            "type": "shell",
+            "command": "npm install",
+            "problemMatcher": []
+        },
+        {
+            "label": "npm: dev",
+            "type": "shell",
+            "command": "npm run dev",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "npm: build",
+            "type": "shell",
+            "command": "npm run build",
+            "group": "build",
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "npm: test",
+            "type": "shell",
+            "command": "npm test",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "npm: coverage",
+            "type": "shell",
+            "command": "npm run test:coverage",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "npm: openapi",
+            "type": "shell",
+            "command": "npm run openapi:build && npm run openapi:types",
+            "problemMatcher": []
+        }
+    ]
+}
