@@ -37,10 +37,10 @@ jobs:
       - name: Validate OpenAPI
         run: |
           npm install -g @redocly/cli
-          redocly lint openapi.yaml
+          redocly lint openapi.json
 
       # 7. generate docs
       - name: Generate OpenAPI docs
         run: |
           mkdir -p docs
-          redocly build-docs openapi.yaml -o docs/index.html
+          redocly build-docs openapi.json -o docs/index.html
